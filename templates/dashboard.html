@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Sistema de Busca e Gestão de Veículos Apreendidos</title>
+    
+    <!-- CSS Modular -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <!-- CABEÇALHO -->
+    <div class="header">
+        <div class="container">
+            <div class="header-content">
+                <span class="header-icon">🚓</span>
+                <div class="header-text">
+                    <h1>BUSCA E GESTÃO DE VEÍCULOS APREENDIDOS</h1>
+                    <div class="subtitle">16º Distrito Policial - Vila Clementino</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LAYOUT PRINCIPAL -->
+    <div class="container">
+        <div class="main-layout">
+            
+            <!-- BARRA LATERAL -->
+            <div class="sidebar">
+                
+                <!-- Card de Pesquisas -->
+                <div class="sidebar-card">
+                    <div class="card-header" onclick="UI.toggleCard(this)">
+                        <span class="card-title">Pesquisas</span>
+                        <span class="card-chevron">▼</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="search-box">
+                            <input class="search-input" id="searchInput" 
+                                   placeholder="Buscar por placa, modelo, SPJ..." type="text"/>
+                            <span class="search-icon">🔍</span>
+                            <div class="autocomplete-dropdown" id="autocompleteDropdown"></div>
+                        </div>
+                        <div class="recent-searches" id="recentSearches">
+                            <!-- Histórico será preenchido via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card de Filtros -->
+                <div class="sidebar-card">
+                    <div class="card-header" onclick="UI.toggleCard(this)">
+                        <span class="card-title">Filtros</span>
+                        <span class="card-chevron">▼</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="filters">
+                            
+                            <!-- Filtro Status -->
+                            <div class="filter-group">
+                                <label class="filter-label">Status</label>
+                                <select class="filter-select" id="statusFilter">
+                                    <option value="">Todos</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Filtro Pátio -->
+                            <div class="filter-group">
+                                <label class="filter-label">Pátio</label>
+                                <select class="filter-select" id="patioFilter">
+                                    <option value="">Todos</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Filtro Circunscrição -->
+                            <div class="filter-group">
+                                <label class="filter-label">Circunscrição</label>
+                                <select class="filter-select" id="circunscricaoFilter">
+                                    <option value="">Todas</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Filtro Tipo de Veículo -->
+                            <div class="filter-group">
+                                <label class="filter-label">Tipo de Veículo</label>
+                                <div class="checkbox-group" id="tipoFilter">
+                                    <!-- Checkboxes serão preenchidos via JavaScript -->
+                                </div>
+                            </div>
+                            
+                            <!-- Filtro Data -->
+                            <div class="filter-group">
+                                <label class="filter-label">Data da Apreensão</label>
+                                <div class="date-shortcuts">
+                                    <button class="date-shortcut" data-days="0">Hoje</button>
+                                    <button class="date-shortcut" data-days="7">7 dias</button>
+                                    <button class="date-shortcut" data-days="30">30 dias</button>
+                                    <button class="date-shortcut" data-days="90">3 meses</button>
+                                </div>
+                                <div class="date-range">
+                                    <input class="filter-input" id="dateFrom" placeholder="dd/mm/aaaa" type="text" maxlength="10"/>
+                                    <input class="filter-input" id="dateTo" placeholder="dd/mm/aaaa" type="text" maxlength="10"/>
+                                </div>
+                            </div>
+                            
+                            <button class="clear-filters" onclick="Filters.clearAll()">Limpar Filtros</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card de Funções -->
+                <div class="sidebar-card">
+                    <div class="card-header" onclick="UI.toggleCard(this)">
+                        <span class="card-title">Funções</span>
+                        <span class="card-chevron">▼</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="functions-card">
+                            <div class="function-item" onclick="UI.handleFunction('cadastrar')">
+                                <span class="function-icon">➕</span>
+                                <span>Cadastrar Veículo</span>
+                            </div>
+                            <div class="function-item" onclick="UI.handleFunction('relatorio')">
+                                <span class="function-icon">📊</span>
+                                <span>Gerar Relatório</span>
+                            </div>
+                            <div class="function-item" onclick="UI.handleFunction('backup')">
+                                <span class="function-icon">💾</span>
+                                <span>Fazer Backup</span>
+                            </div>
+                            <div class="function-item" onclick="UI.handleFunction('settings')">
+                                <span class="function-icon">⚙️</span>
+                                <span>Configurações</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ÁREA DE CONTEÚDO -->
+            <div class="content-area">
+                
+                <!-- Card de Resultados -->
+                <div class="main-content">
+                    <div class="results-header" onclick="UI.toggleCard(this)">
+                        <span class="results-title">Resultados Completos</span>
+                        <span class="results-chevron">▼</span>
+                    </div>
+                    <div class="results-content">
+                        
+                        <!-- Filtros Ativos com Botão de Configuração de Colunas -->
+                        <div class="active-filters" id="activeFilters">
+                            <div class="filters-content">
+                                <span style="color: #94a3b8; font-size: 12px; font-weight: 600; margin-right: 8px;">
+                                    Filtros Ativos:
+                                </span>
+                                <span id="no-filters-msg" style="color: #64748b; font-size: 12px; font-style: italic;">
+                                    Nenhum
+                                </span>
+                                <!-- Badges de filtros serão adicionados aqui dinamicamente -->
+                            </div>
+                            <div class="filters-actions">
+                                <button class="column-settings-btn" onclick="ColumnManager.openModal()" title="Configurar Colunas">
+                                    <span class="settings-icon">⚙️</span>
+                                    <span class="settings-text">Colunas</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Loading -->
+                        <div class="loading-spinner" id="loadingSpinner">
+                            <div class="spinner"></div>
+                        </div>
+
+                        <!-- Mensagem de Erro -->
+                        <div class="error-message" id="errorMessage">
+                            Erro ao carregar dados. Tente novamente.
+                        </div>
+
+                        <!-- Tabela de Resultados -->
+                        <div class="table-container" id="tableContainer">
+                            <table class="results-table">
+                                <thead>
+                                    <tr id="tableHeader">
+                                        <!-- Cabeçalhos serão preenchidos via JavaScript -->
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody">
+                                    <!-- Linhas serão preenchidas via JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Paginação -->
+                        <div class="pagination" id="pagination">
+                            <!-- Paginação será preenchida via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card de Detalhes -->
+                <div class="details-card">
+                    <div class="details-header" onclick="UI.toggleCard(this)">
+                        <span class="details-title">Detalhes do Veículo</span>
+                        <span class="details-chevron collapsed">▼</span>
+                    </div>
+                    <div class="details-content collapsed">
+                        <div class="vehicle-details" id="vehicleDetailsContent">
+                            <!-- Estado inicial: nenhum veículo selecionado -->
+                            <div style="display: flex; align-items: center; justify-content: center; min-height: 200px; text-align: center;">
+                                <div>
+                                    <div style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;">🔍</div>
+                                    <div style="color: #94a3b8; font-size: 16px; font-weight: 600; margin-bottom: 8px;">
+                                        Nenhum veículo selecionado
+                                    </div>
+                                    <div style="color: #64748b; font-size: 14px;">
+                                        Pesquise e selecione um veículo acima
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Configuração de Colunas -->
+    <div class="modal-overlay" id="columnModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Configurar Colunas da Tabela</h2>
+                <button class="modal-close" onclick="ColumnManager.closeModal()">×</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="column-stats">
+                    <span>Mostrando <strong id="visibleCount">0</strong> de <strong id="totalCount">0</strong> colunas</span>
+                </div>
+                
+                <div class="column-actions">
+                    <button class="action-btn secondary" onclick="ColumnManager.toggleAll(true)">Mostrar Todas</button>
+                    <button class="action-btn secondary" onclick="ColumnManager.toggleAll(false)">Ocultar Todas</button>
+                    <button class="action-btn primary" onclick="ColumnManager.resetToDefault()">Padrão</button>
+                </div>
+                
+                <div class="columns-container">
+                    <div class="column-section">
+                        <h3>
+                            📋 Colunas Visíveis
+                            <span class="drag-instruction">Arraste para ocultar →</span>
+                        </h3>
+                        <div class="column-list" id="visibleColumnsList">
+                            <!-- Colunas visíveis serão preenchidas via JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="column-section">
+                        <h3>
+                            👁️‍🗨️ Colunas Ocultas
+                            <span class="drag-instruction">← Arraste para mostrar</span>
+                        </h3>
+                        <div class="column-list" id="hiddenColumnsList">
+                            <!-- Colunas ocultas serão preenchidas via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <div class="modal-footer-left">
+                    💡 Arraste as colunas entre as listas para mostrar/ocultar
+                </div>
+                <button class="action-btn secondary" onclick="ColumnManager.closeModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Modular -->
+    <script src="{{ url_for('static', filename='js/config.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/filters.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/table.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/details.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/columns.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
