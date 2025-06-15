@@ -1,0 +1,32 @@
+/* ====================================================================
+   BASE STYLES - Variables, Reset & Global Styles
+   ==================================================================== */
+
+/* Reset e Configurações Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    background-color: #0f172a;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    line-height: 1.4;
+    min-height: 100vh;
+    font-size: 14px;
+    -ms-overflow-style: scrollbar;
+}
+
+/* Container padrão */
+.container {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 16px;
+}

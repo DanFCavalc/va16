@@ -1,0 +1,195 @@
+/* ====================================================================
+   CUSTOM SCROLLBARS - Theme-integrated scrollbar styles
+   ==================================================================== */
+
+/* Firefox - Scrollbars que combinam com o tema */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #475569 #1e293b;
+}
+
+/* Webkit Browsers (Chrome, Safari, Edge) - Tema principal */
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #1e293b;
+    border-radius: 4px;
+    border: 1px solid #334155;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #475569, #334155);
+    border-radius: 4px;
+    border: 1px solid #334155;
+    transition: all 0.3s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #64748b, #475569);
+    border-color: #60a5fa;
+    box-shadow: 0 0 8px rgba(96, 165, 250, 0.3);
+}
+
+*::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    border-color: #2563eb;
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+}
+
+*::-webkit-scrollbar-corner {
+    background: #1e293b;
+    border: 1px solid #334155;
+}
+
+/* Scrollbar da tabela de resultados - Destaque especial */
+.table-container::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #334155;
+    border-radius: 6px;
+    border: 1px solid #475569;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #3b82f6, #60a5fa);
+    border-radius: 6px;
+    border: 1px solid #2563eb;
+    box-shadow: inset 0 1px 3px rgba(96, 165, 250, 0.2);
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #2563eb, #3b82f6);
+    border-color: #1d4ed8;
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+}
+
+/* Scrollbar dos filtros ativos - Horizontal sutil */
+.active-filters::-webkit-scrollbar {
+    height: 6px;
+}
+
+.active-filters::-webkit-scrollbar-track {
+    background: #334155;
+    border-radius: 3px;
+}
+
+.active-filters::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+
+.active-filters::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+}
+
+/* Scrollbar dos dropdowns - Discreto */
+.autocomplete-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.autocomplete-dropdown::-webkit-scrollbar-track {
+    background: #1e293b;
+    border-radius: 3px;
+}
+
+.autocomplete-dropdown::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-radius: 3px;
+    border: 1px solid #334155;
+}
+
+.autocomplete-dropdown::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+    border-color: #60a5fa;
+}
+
+/* Scrollbar das áreas de detalhes - Tom azul suave */
+.vehicle-details::-webkit-scrollbar {
+    width: 8px;
+}
+
+.vehicle-details::-webkit-scrollbar-track {
+    background: #0f172a;
+    border-radius: 4px;
+    border: 1px solid #334155;
+}
+
+.vehicle-details::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #60a5fa, #3b82f6);
+    border-radius: 4px;
+    border: 1px solid #2563eb;
+}
+
+.vehicle-details::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #3b82f6, #2563eb);
+    box-shadow: 0 0 8px rgba(96, 165, 250, 0.3);
+}
+
+/* Scrollbar do modal de colunas */
+.modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: #1e293b;
+    border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #475569, #334155);
+    border-radius: 4px;
+    border: 1px solid #334155;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #60a5fa, #3b82f6);
+}
+
+.column-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.column-list::-webkit-scrollbar-track {
+    background: #0f172a;
+    border-radius: 3px;
+}
+
+.column-list::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-radius: 3px;
+}
+
+.column-list::-webkit-scrollbar-thumb:hover {
+    background: #3b82f6;
+}
+
+/* Scrollbars responsivos para mobile */
+@media (max-width: 768px) {
+    *::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    
+    .table-container::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+}
+
+/* Smooth scrolling e animações */
+*::-webkit-scrollbar-thumb {
+    opacity: 0.8;
+    transition: opacity 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+*:hover::-webkit-scrollbar-thumb {
+    opacity: 1;
+}

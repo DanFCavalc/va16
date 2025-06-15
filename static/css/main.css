@@ -1,0 +1,16 @@
+/* ====================================================================
+   SISTEMA DE BUSCA E GESTÃO DE VEÍCULOS APREENDIDOS
+   16º Distrito Policial - Vila Clementino
+   
+   Arquivo: main.css
+   Descrição: Arquivo principal que importa todos os módulos CSS
+   ==================================================================== */
+
+/* Importa todos os módulos CSS na ordem correta */
+@import url('base.css');
+@import url('layout.css');
+@import url('components.css');
+@import url('table.css');
+@import url('filters.css');
+@import url('modal.css');
+@import url('scrollbar.css');

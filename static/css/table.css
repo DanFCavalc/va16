@@ -1,0 +1,212 @@
+/* ====================================================================
+   TABLE STYLES - Results table, pagination, and responsiveness
+   ==================================================================== */
+
+/* TABELA DE RESULTADOS - RESPONSIVA */
+.table-container {
+    overflow-x: auto;
+    overflow-y: auto;
+    background: #1e293b;
+    max-height: calc(100vh - 300px);
+    width: 100%;
+    position: relative;
+}
+
+.results-table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: fit-content;
+    table-layout: auto;
+}
+
+/* Tabela com poucas colunas - sem scroll horizontal desnecessário */
+.results-table.few-columns {
+    width: 100%;
+    min-width: auto;
+    table-layout: fixed;
+}
+
+/* Tabela com muitas colunas - mantém scroll horizontal */
+.results-table.many-columns {
+    min-width: 1400px;
+    table-layout: auto;
+}
+
+.results-table th {
+    background: #334155;
+    padding: 8px 6px;
+    text-align: center;
+    font-weight: 700;
+    color: #e2e8f0;
+    border-bottom: 1px solid #475569;
+    border-right: 1px solid #475569;
+    font-size: 10px;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    min-width: 80px;
+    max-width: 200px;
+}
+
+/* Colunas de texto precisam de mais espaço */
+.results-table th[data-column="modelo"],
+.results-table th[data-column="proprietario"],
+.results-table th[data-column="obs1"],
+.results-table th[data-column="obs2"] {
+    min-width: 150px;
+    max-width: 300px;
+}
+
+/* Colunas curtas podem ser menores */
+.results-table th[data-column="spj"],
+.results-table th[data-column="tipo"],
+.results-table th[data-column="status"] {
+    min-width: 60px;
+    max-width: 120px;
+}
+
+.results-table th:last-child {
+    border-right: none;
+}
+
+.results-table th:hover {
+    background: #475569;
+}
+
+.sort-indicator {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 8px;
+    color: #94a3b8;
+}
+
+.sort-indicator.asc::after {
+    content: '▲';
+    color: #2563eb;
+}
+
+.sort-indicator.desc::after {
+    content: '▼';
+    color: #2563eb;
+}
+
+.results-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #334155;
+    border-right: 1px solid #334155;
+    font-size: 12px;
+    color: #cbd5e1;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+
+/* Colunas de texto com quebra de linha permitida */
+.results-table td.text-left {
+    text-align: left;
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 300px;
+    line-height: 1.3;
+}
+
+.results-table td:last-child {
+    border-right: none;
+}
+
+.results-table tr:hover {
+    background: #334155;
+    cursor: pointer;
+}
+
+/* PAGINAÇÃO */
+.pagination {
+    padding: 6px 12px !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #475569;
+    background: #334155;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.pagination-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.results-per-page {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.results-per-page select {
+    padding: 4px 8px;
+    border: 1px solid #475569;
+    border-radius: 4px;
+    background: #1e293b;
+    color: #e2e8f0;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.results-per-page label {
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.pagination-info {
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.pagination-controls {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.page-btn {
+    padding: 8px 12px;
+    border: 1px solid #475569;
+    background: #1e293b;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+    color: #cbd5e1;
+}
+
+.page-btn:hover:not(:disabled) {
+    background: #334155;
+    border-color: #64748b;
+}
+
+.page-btn.active {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+}
+
+.page-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}

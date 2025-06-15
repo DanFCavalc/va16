@@ -1,0 +1,108 @@
+/* ====================================================================
+   LAYOUT & STRUCTURE - Header, Sidebar, Main Layout
+   ==================================================================== */
+
+/* CABEÇALHO */
+.header {
+    padding: 20px 0 8px;
+    background: transparent;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.header-icon {
+    font-size: 2rem;
+}
+
+.header-text h1 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1px;
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.5px;
+}
+
+.header-text .subtitle {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* LAYOUT PRINCIPAL */
+.main-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    min-height: calc(100vh - 120px);
+    align-items: flex-start;
+}
+
+/* BARRA LATERAL */
+.sidebar {
+    width: 300px;
+    min-width: 280px;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: fit-content;
+    flex-shrink: 0;
+}
+
+.sidebar-card {
+    background: #1e293b;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #334155;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+/* ÁREA DE CONTEÚDO */
+.content-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    min-width: 0;
+}
+
+.main-content, .details-card {
+    background: #1e293b;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #334155;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 992px) {
+    .main-layout {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .sidebar {
+        width: 100%;
+        max-width: none;
+        min-width: auto;
+        order: 2;
+    }
+    
+    .content-area {
+        order: 1;
+    }
+}

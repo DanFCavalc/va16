@@ -1,0 +1,524 @@
+/* ====================================================================
+   MODAL STYLES - Column configuration modal with drag and drop
+   ==================================================================== */
+
+/* Inject placeholder CSS for drag-and-drop line indicator */
+.column-placeholder {
+    height: 2px;
+    background: #888;
+    margin: 4px 0;
+}
+
+/* MODAL DE CONFIGURAÇÃO DE COLUNAS - DRAG AND DROP */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    animation: modalFadeIn 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(4px);
+    }
+}
+
+.modal-content {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    width: 700px;
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow: hidden;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-header {
+    padding: 20px 24px;
+    background: #334155;
+    border-bottom: 1px solid #475569;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    color: #60a5fa;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: #dc2626;
+    background: #374151;
+}
+
+.modal-body {
+    padding: 24px;
+    overflow-y: auto;
+    max-height: calc(80vh - 140px);
+}
+
+.column-stats {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #e2e8f0;
+    font-size: 14px;
+}
+
+.column-actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    justify-content: center;
+}
+
+.action-btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 2px solid;
+    min-width: 100px;
+}
+
+.action-btn.primary {
+    background: #3b82f6;
+    color: #ffffff;
+    border-color: #3b82f6;
+}
+
+.action-btn.primary:hover {
+    background: #2563eb;
+    border-color: #2563eb;
+}
+
+.action-btn.secondary {
+    background: transparent;
+    color: #cbd5e1;
+    border-color: #475569;
+}
+
+.action-btn.secondary:hover {
+    background: #475569;
+    border-color: #64748b;
+    color: #ffffff;
+}
+
+.columns-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.column-section h3 {
+    color: #60a5fa;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.drag-instruction {
+    font-size: 11px;
+    color: #94a3b8;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    margin-left: auto;
+}
+
+.column-list {
+    background: #0f172a;
+    border: 2px dashed #334155;
+    border-radius: 8px;
+    min-height: 250px;
+    max-height: 350px;
+    overflow-y: auto;
+    padding: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.column-list.drag-over {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.05);
+    box-shadow: inset 0 0 20px rgba(59, 130, 246, 0.1);
+}
+
+.column-list.empty::before {
+    content: "Arraste colunas aqui";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #64748b;
+    font-style: italic;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.column-item {
+    background: #1e293b;
+    border: 1px solid #475569;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 6px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: grab;
+    transition: all 0.2s;
+    user-select: none;
+    position: relative;
+}
+
+.column-item:hover {
+    background: #334155;
+    border-color: #64748b;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.column-item.dragging {
+    opacity: 0.5;
+    cursor: grabbing;
+    transform: rotate(3deg) scale(1.05);
+    z-index: 1000;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.column-item::before {
+    content: "⋮⋮";
+    position: absolute;
+    left: 6px;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: -2px;
+}
+
+.column-name {
+    color: #e2e8f0;
+    font-size: 13px;
+    font-weight: 500;
+    flex: 1;
+    margin-left: 16px;
+}
+
+.column-status {
+    color: #94a3b8;
+    font-size: 11px;
+    background: #334155;
+    padding: 2px 8px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.column-status.visible {
+    background: #065f46;
+    color: #6ee7b7;
+}
+
+.column-status.hidden {
+    background: #7c2d12;
+    color: #fbbf24;
+}
+
+.modal-footer {
+    padding: 16px 24px;
+    background: #334155;
+    border-top: 1px solid #475569;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-footer-left {
+    color: #94a3b8;
+    font-size: 12px;
+    font-style: italic;
+}
+
+/* DETALHES DO VEÍCULO */
+.vehicle-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px; /* Reduced from 20px */
+}
+
+.detail-section {
+    margin-bottom: 12px; /* Reduced further from 16px */
+}
+
+.section-title {
+    font-size: 15px; /* Increased from 14px */
+    font-weight: 700;
+    color: #60a5fa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #475569;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px; /* Reduced further from 10px */
+}
+
+.detail-grid-single {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; /* Reduced further from 10px */
+}
+
+.detail-group {
+    margin-bottom: 4px; /* Small margin for better field separation */
+}
+
+.detail-label {
+    font-size: 12px; /* Increased from 11px for better readability */
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px; /* Slightly increased from 2px for better readability */
+}
+
+/* OLD INPUT-STYLE VALUES (kept for backward compatibility) */
+.detail-value {
+    font-size: 14px; /* Increased from 13px to match new standard */
+    color: #e2e8f0;
+    font-weight: 500;
+    padding: 8px 10px;
+    background: #0f172a;
+    border-radius: 6px;
+    border: 1px solid #475569;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.detail-value.highlighted {
+    background: #1e3a8a;
+    border-color: #2563eb;
+    color: #93c5fd;
+    font-weight: 600;
+}
+
+/* PLAIN TEXT VALUES */
+.detail-value-text {
+    font-size: 14px; /* Increased from 13px for better readability */
+    color: #e2e8f0;
+    font-weight: 500;
+    padding: 4px 0 4px 12px; /* Consistent left padding for all fields */
+    min-height: 20px;
+    display: flex;
+    align-items: center;
+    word-wrap: break-word;
+    word-break: break-word;
+    line-height: 1.4;
+    margin-top: 3px; /* Small margin for visual separation from label */
+}
+
+
+
+/* Styling for empty values - "Não informado" with improved readability */
+.no-value {
+    color: #64748b;
+    font-style: italic;
+    opacity: 0.8; /* Slightly increased from 0.7 for better readability */
+    font-size: 13px; /* Slightly larger for better readability */
+}
+
+/* SPECIAL FIELD FORMATTING */
+
+/* SPJ field - bold text */
+.spj-text {
+    font-weight: 700;
+    color: #e2e8f0;
+}
+
+/* Status field - bold with conditional colors */
+.status-text {
+    font-weight: 700;
+    font-size: 14px;
+    color: #e2e8f0; /* Default white color if no specific class matches */
+}
+
+/* Status color variations - covering different possible values */
+.status-text.apreendido {
+    color: #ffc90f;
+}
+
+.status-text.depositado {
+    color: #3b82f6;
+}
+
+.status-text.entregue {
+    color: #02c170;
+}
+
+.status-text.leilao {
+    color: #c084fc;
+}
+
+/* Additional status variations */
+.status-text.leilão {
+    color: #c084fc;
+}
+
+.status-text.restituido {
+    color: #02c170;
+}
+
+.status-text.restituído {
+    color: #02c170;
+}
+
+.status-text.destruido {
+    color: #dc2626;
+}
+
+.status-text.destruído {
+    color: #dc2626;
+}
+
+.status-text.devolvido {
+    color: #02c170;
+}
+
+.status-text.perdido {
+    color: #dc2626;
+}
+
+.status-text.roubado {
+    color: #dc2626;
+}
+
+.status-text.danificado {
+    color: #f59e0b;
+}
+
+.status-text.em_analise {
+    color: #8b5cf6;
+}
+
+.status-text.em_análise {
+    color: #8b5cf6;
+}
+
+.status-text.liberado {
+    color: #02c170;
+}
+
+/* Chassi field - uppercase */
+.chassi-text {
+    text-transform: uppercase;
+    color: #e2e8f0;
+    font-family: 'Courier New', monospace; /* Monospace for better chassi readability */
+    letter-spacing: 1px;
+}
+
+/* AÇÕES DO VEÍCULO */
+.vehicle-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 8px;
+    margin-top: 10px; /* Reduced further from 12px */
+    padding-top: 10px; /* Reduced further from 12px */
+    border-top: 1px solid #475569;
+    flex-wrap: wrap;
+}
+
+/* Responsividade do modal */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95vw;
+        max-height: 90vh;
+    }
+    
+    .columns-container {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .column-actions {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .action-btn {
+        min-width: 80px;
+        padding: 8px 16px;
+    }
+    
+    .column-list {
+        min-height: 200px;
+        max-height: 250px;
+    }
+    
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+}

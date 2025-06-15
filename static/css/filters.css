@@ -1,0 +1,311 @@
+/* ====================================================================
+   FILTERS & SEARCH - Search box, filter components, active badges
+   ==================================================================== */
+
+/* ÁREA DE PESQUISA */
+.search-box {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 40px 10px 12px;
+    border: 1px solid #475569;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #0f172a;
+    color: #e2e8f0;
+    transition: all 0.3s;
+    font-weight: 500;
+    font-family: inherit;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    background: #1e293b;
+}
+
+.search-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+/* AUTOCOMPLETE */
+.autocomplete-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #1e293b;
+    border: 1px solid #475569;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+}
+
+.autocomplete-item {
+    padding: 8px 12px;
+    font-size: 13px;
+    color: #cbd5e1;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-bottom: 1px solid #334155;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.autocomplete-item:last-child {
+    border-bottom: none;
+}
+
+.autocomplete-item:hover {
+    background: #334155;
+}
+
+.autocomplete-item.highlighted {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.autocomplete-type {
+    font-size: 10px;
+    background: #475569;
+    color: #94a3b8;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* FILTROS */
+.filters {
+    margin-bottom: 0;
+}
+
+.filter-group {
+    margin-bottom: 16px;
+}
+
+/* FILTROS DE DATA */
+.date-shortcuts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.date-shortcut {
+    padding: 6px 8px;
+    background: #0f172a;
+    border: 1px solid #475569;
+    border-radius: 6px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #cbd5e1;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: inherit;
+}
+
+.date-shortcut:hover {
+    background: #334155;
+    border-color: #64748b;
+}
+
+.date-shortcut.active {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #ffffff;
+}
+
+.date-range {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.date-range input {
+    width: 100%;
+}
+
+/* FILTROS ATIVOS (BADGES) E CONFIGURAÇÃO DE COLUNAS */
+.active-filters {
+    height: 40px !important;
+    padding: 0 16px;
+    margin-bottom: 0 !important;
+    background-color: #1e293b;
+    border-bottom: 1px solid #334155;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.filters-content {
+    flex: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px;
+    height: 100%;
+    min-width: 0;
+}
+
+.filters-actions {
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+    flex-shrink: 0;
+}
+
+.column-settings-btn {
+    background: transparent;
+    border: 2px solid #475569;
+    color: #cbd5e1;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.column-settings-btn:hover {
+    background: #475569;
+    border-color: #64748b;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.column-settings-btn:active {
+    background: #3b82f6;
+    border-color: #2563eb;
+    color: #ffffff;
+    transform: translateY(0);
+}
+
+.settings-icon {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.settings-text {
+    font-size: 10px;
+}
+
+.filter-chip {
+    background: transparent;
+    color: #3b82f6;
+    border: 2px solid #3b82f6;
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    animation: chipFadeIn 0.3s ease;
+    margin-right: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.filter-chip-remove {
+    cursor: pointer;
+    font-size: 11px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.filter-chip-remove:hover {
+    opacity: 1;
+}
+
+@keyframes chipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* HISTÓRICO DE PESQUISAS */
+.recent-searches {
+    margin-bottom: 0;
+}
+
+.recent-item {
+    padding: 8px 12px;
+    background: #0f172a;
+    margin-bottom: 6px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #cbd5e1;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid #475569;
+    font-weight: 500;
+    font-family: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.recent-item:hover {
+    background: #334155;
+    border-color: #64748b;
+}
+
+.recent-item.active {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+}
+
+.recent-item:last-child {
+    margin-bottom: 0;
+}
+
+.recent-item-text {
+    flex: 1;
+}
+
+.recent-item-remove {
+    color: #94a3b8;
+    font-size: 14px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    transition: all 0.2s;
+    margin-left: 8px;
+}
+
+.recent-item-remove:hover {
+    background: #dc2626;
+    color: #ffffff;
+}

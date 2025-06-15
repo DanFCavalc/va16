@@ -1,0 +1,299 @@
+/* ====================================================================
+   UI COMPONENTS - Cards, Buttons, Forms, Status Indicators
+   ==================================================================== */
+
+/* CARDS E CABEÇALHOS */
+.card-header, .results-header, .details-header {
+    padding: 10px 16px;
+    background: #334155;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s;
+    border-bottom: 1px solid #475569;
+    border-radius: 12px 12px 0 0;
+}
+
+.card-header:hover, .results-header:hover, .details-header:hover {
+    background: #475569;
+}
+
+.card-title, .results-title, .details-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #e2e8f0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card-chevron, .results-chevron, .details-chevron {
+    font-size: 12px;
+    color: #94a3b8;
+    transition: transform 0.3s ease;
+}
+
+.card-content, .details-content {
+    padding: 16px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    background: #1e293b;
+}
+
+.results-content {
+    padding: 0;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.card-content.collapsed, .details-content.collapsed {
+    max-height: 0;
+    padding: 0 16px;
+}
+
+.results-content.collapsed {
+    max-height: 0;
+    padding: 0;
+}
+
+.card-chevron.collapsed, .results-chevron.collapsed, .details-chevron.collapsed {
+    transform: rotate(-90deg);
+}
+
+/* BOTÕES */
+.clear-filters {
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    color: #dc2626;
+    border: 2px solid #dc2626;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: inherit;
+}
+
+.clear-filters:hover {
+    background: #dc2626;
+    color: white;
+}
+
+.action-button {
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 2px solid;
+    flex: 1;
+    min-width: 120px;
+}
+
+.action-button.primary {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+}
+
+.action-button.primary:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+}
+
+.action-button.secondary {
+    background: #1e293b;
+    color: #cbd5e1;
+    border-color: #475569;
+}
+
+.action-button.secondary:hover {
+    background: #334155;
+    border-color: #64748b;
+}
+
+.action-button.danger {
+    background: transparent;
+    color: #dc2626;
+    border-color: #dc2626;
+}
+
+.action-button.danger:hover {
+    background: #dc2626;
+    color: white;
+    border-color: #dc2626;
+}
+
+/* FORMULÁRIOS */
+.filter-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: inherit;
+}
+
+.filter-select, .filter-input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #475569;
+    border-radius: 6px;
+    font-size: 13px;
+    background: #0f172a;
+    color: #e2e8f0;
+    transition: all 0.3s;
+    font-weight: 500;
+    font-family: inherit;
+}
+
+.filter-select:focus, .filter-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    background: #1e293b;
+}
+
+.filter-select.active, .filter-input.active {
+    border-color: #2563eb;
+    background: #1e293b;
+}
+
+/* FUNÇÕES */
+.functions-card {
+    margin-bottom: 0;
+}
+
+.function-item {
+    padding: 10px 12px;
+    background: #0f172a;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #cbd5e1;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid #475569;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-family: inherit;
+}
+
+.function-item:hover {
+    background: #334155;
+    border-color: #64748b;
+}
+
+.function-item:last-child {
+    margin-bottom: 0;
+}
+
+.function-icon {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+/* STATUS DOS VEÍCULOS */
+.status {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.status.apreendido {
+    color: #ffc90f;
+}
+
+.status.depositado {
+    color: #3b82f6;
+}
+
+.status.entregue {
+    color: #02c170;
+}
+
+.status.leilao {
+    color: #c084fc;
+}
+
+/* LOADING E ERROS */
+.loading-spinner {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #334155;
+    border-top: 4px solid #2563eb;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-message {
+    display: none;
+    padding: 16px;
+    background: #7f1d1d;
+    color: #fecaca;
+    border-radius: 8px;
+    margin: 16px;
+    border: 1px solid #dc2626;
+}
+
+/* CHECKBOXES */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.checkbox-item:hover {
+    background: #334155;
+}
+
+.checkbox-item input[type="checkbox"] {
+    margin: 0;
+    accent-color: #2563eb;
+    width: 16px;
+    height: 16px;
+}
+
+.checkbox-item label {
+    color: #cbd5e1;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+}
